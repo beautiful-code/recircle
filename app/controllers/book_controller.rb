@@ -13,10 +13,8 @@ class BookController < ApplicationController
     end
   end
   def show
-    @book = Book.find(params[:id])
-    if @book == nil
-      redirect_to root_url
-    end
+    @user = User.find(params[:user_id])
+    @book = @user.books.find(params[:id])
   end
 
 

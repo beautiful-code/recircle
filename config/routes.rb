@@ -4,14 +4,14 @@ Rails.application.routes.draw do
 
 
   resources :user,only:[:show]  do
-    resources :book, shallow: true,only: [:new,:show]
+    resources :book,only: [:new,:show]
     resources :request, only: [:create,:update]
     member do
       post 'addbook' => 'book#create'
       get 'requests' => 'request#show'
+      get 'library' => 'user#library'
     end
   end
-  get 'mylibrary' => 'user#mylibrary'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

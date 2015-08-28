@@ -1,10 +1,9 @@
 <h1>Requests</h2>
 
 <% @books.each do |book| %>
-  <% requests = book.requests.where(status: 0) %>
-  <% if requests.count != 0%>
-    <h4><%= link_to book.name,book %></h4>
-    <% requests.each do |request| %>
+  <% if book.unanswered_requests.count != 0%>
+    <h4><%= link_to book.name,[current_user, book] %></h4>
+    <% book.unanswered_requests.each do |request| %>
       <p>Requested By <%= (link_to request.user.name,request.user) %></p>
       <%= button_to "Accept",user_request_path(user_id: current_user.id,id: request.id),method: :patch,class: "btn btn-primary" %>
     <% end %>

@@ -6,7 +6,7 @@
     <div class="row">
       <h2><%= book.name %></h2>
       <div class="col-md-9" >
-        <%= link_to image_tag(book.image,class: "img-responsive",alt: book.name),book  %>
+        <%= link_to image_tag(book.image,class: "img-responsive",alt: book.name),user_book_path(current_user,id: book.id)  %>
       </div>
       <div class="col-md-3">
         <p>Owned By: <%= link_to book.user.name.capitalize,book.user %></p>
