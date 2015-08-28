@@ -1,0 +1,12 @@
+<%= div_for(@book,class: "container") do %>
+  <h2><%= @book.name %></h2>
+  <div class="row">
+    <div class="col-md-9" >
+      <%= image_tag(@book.image,class: "img-responsive",alt: @book.name)  %>
+    </div>
+    <div class="col-md-3">
+      <p>Owned By: <%= link_to @book.user.name.capitalize,@book.user %></p>
+      <%= button_to "Request Book",user_request_index_path(user_id: current_user.id,request: {book_id: @book.id}),class: request_button_class %>
+    </div>
+  </div>
+<% end %>
