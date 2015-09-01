@@ -1,0 +1,12 @@
+.m-nav
+  .m-navbar-header
+    %a.m-navbar-brand{:href => "#"}
+      %h1 LendMe
+  .m-navbar-nav
+    %ul
+      %li= link_to "Home",root_path
+      %li= link_to "My Library",library_user_path(current_user)
+      %li= link_to "Add Book",new_user_book_path(current_user)
+      %li= link_to "Requests",user_requests_path(current_user)
+      %li= link_to current_user.name,current_user
+      %li= link_to "Logout",destroy_user_session_path,method: :delete

@@ -1,0 +1,9 @@
+%h1 Add Book
+= form_for [current_user, @book] do |f|
+  .form-group
+    = f.label :name
+    = f.text_field :name,autofocus: true,class: 'form-control'
+  .form-group
+    = f.label :image
+    = f.text_field :image,autofocus: true,class: 'form-control'
+  = f.submit "Add Book" ,class: 'btn btn-primary'

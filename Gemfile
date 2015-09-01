@@ -34,6 +34,9 @@ gem 'devise', '~> 3.5.2'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
+gem 'haml-rails'
+gem 'haml' , '~> 4.0.7'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
