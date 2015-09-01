@@ -3,13 +3,17 @@ Rails.application.routes.draw do
   root 'app#index'
 
 
-  resources :user,only:[:show]  do
-    resources :book,only: [:new,:show]
-    resources :request, only: [:create,:update]
+  resources :users,only:[:show]  do
+    resources :books,only: [:new,:show,:edit,:update, :create]
+    resources :requests, only: [:create, :index] do
+      member do
+        patch 'accept'
+        patch 'decline'
+      end
+    end
+
     member do
-      post 'addbook' => 'book#create'
-      get 'requests' => 'request#show'
-      get 'library' => 'user#library'
+      get 'library' => 'users#library'
     end
   end
   # The priority is based upon order of creation: first created -> highest priority.

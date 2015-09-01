@@ -1,15 +1,15 @@
-<div class="nav">
-  <div class="navbar-header">
-    <a href="#"class="navbar-brand">
+<div class="m-nav">
+  <div class="m-navbar-header">
+    <a href="#"class="m-navbar-brand">
       <h1>LendMe</h1>
     </a>
   </div>
-  <div class="navbar-nav">
+  <div class="m-navbar-nav">
     <ul>
       <li><%= link_to "Home",root_path %></li>
       <li><%= link_to "My Library",library_user_path(current_user) %></li>
       <li><%= link_to "Add Book",new_user_book_path(current_user) %></li>
-      <li><%= link_to "Requests",requests_user_path(id: current_user.id) %></li>
+      <li><%= link_to "Requests",user_requests_path(current_user) %></li>
       <li><%= link_to current_user.name,current_user %></li>
       <li><%= link_to "Logout",destroy_user_session_path,method: :delete %></li>
     </ul>

@@ -16,15 +16,16 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "bootstrap/theme";
-.navbar-header{
+.m-navbar-header{
     float:left;
 }
-.navbar-brand {
+.m-navbar-brand {
     padding : 5px 15px;
     display:inline-block;
     text-decoration:none;
 }
-.navbar-brand h1{
+.m-navbar-brand h1{
+    margin: 0px;
     font-size:20px;
     line-height:40px;
     text-transform:uppercase;
@@ -32,14 +33,15 @@
     font-weight:700;
     font-family:Montserrat,sans-serif;
 }
-.navbar-nav{
+.m-navbar-nav{
     float:right;
 }
-.navbar-nav ul{
+.m-navbar-nav ul{
     overflow:auto;
+    margin :0px;
     background-color:rgba(255,255,255,.4);
 }
-.navbar-nav li{
+.m-navbar-nav li{
     letter-spacing:1px;
     font-family: 'Lato',sans-serif;
     text-transform:uppercase;
@@ -49,7 +51,7 @@
     line-height:20px;
 
 }
-.navbar-nav a{
+.m-navbar-nav a{
     font-size:12px;
     color:#444;
     display:block;
@@ -57,6 +59,6 @@
     padding:15px;
     height:50px;
 }
-.nav{
+.m-nav{
     overflow:auto;
 }

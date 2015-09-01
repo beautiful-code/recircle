@@ -7,4 +7,11 @@ class User < ActiveRecord::Base
   validates :name, presence: true
   has_many :books, dependent: :destroy
   has_many :requests
+
+  # Build a hash of book to unanswered requests
+  def open_requests
+    r= Hash.new
+    self.books.each{|book| r[book]=book.unanswered_requests}
+    return r
+  end
 end
