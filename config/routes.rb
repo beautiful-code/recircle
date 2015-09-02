@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users, path_names: {sign_in: "login"},controllers: {registrations:'users/registrations'}
   root 'app#index'
+  get 'search' => 'app#search'
 
 
   resources :users,only:[:show]  do
