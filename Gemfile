@@ -31,6 +31,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 #Authentication and Session
 gem 'devise', '~> 3.5.2'
 
+gem 'pg'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 

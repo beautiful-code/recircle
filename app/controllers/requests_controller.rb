@@ -41,7 +41,7 @@ class RequestsController < ApplicationController
   end
 
   def validate_request
-    unless current_user.books.find(params[:request][:book_id])
+    if Book.find(params[:request][:book_id]).user == current_user
       flash[:danger] ="You cannot request your own book"
       redirect_to root_url
       return
