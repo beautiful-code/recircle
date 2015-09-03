@@ -1,16 +1,13 @@
-- flash.each do |message_type,message|
-  %div{:class => "alert alert-#{message_type}"}= message
-= form_tag search_path,method: 'get' do |f|
-  %p
-    = text_field_tag :search ,params[:search]
-    = submit_tag "Search", name: nil
-.container
-  - @books.each do |book|
+#app-index
+  - flash.each do |message_type,message|
+    %div{:class => "alert alert-#{message_type}"}= message
+  = form_tag search_path,method: 'get' do |f|
+    %p
+      = text_field_tag :search ,params[:search],class:"center-block"
+      = submit_tag "Search", name: nil,class:"center-block"
+  .container
+    %h1 Books around you
     .row
-      %h2= book.name
-      .col-md-9
-        = link_to image_tag(book.image,class: "img-responsive",alt: book.name),user_book_path(user_id: book.user.id,id: book.id)
-      .col-md-3
-        %p
-          Owned By: #{link_to book.user.name.capitalize,book.user}
-        = button_to "Request Book",user_requests_path(user_id: current_user.id,request: {book_id: book.id}),class: "btn btn-primary"
+      - @books.each do |book|
+        .col-xs-6.col-sm-4.col-md-2
+          = link_to image_tag(book.image,class: "img-responsive",alt: book.name),user_book_path(user_id: book.user.id,id: book.id)

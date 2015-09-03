@@ -13,7 +13,7 @@ class Book < ActiveRecord::Base
       books = query.collect do |word|
         where("name like ?", "%#{word}%")
       end
-      books
+      books.flatten
     else
       all
     end
