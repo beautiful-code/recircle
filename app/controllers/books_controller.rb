@@ -5,13 +5,14 @@ class BooksController < ApplicationController
   end
 
   def create
-    @book =current_user.books.build(book_params)
+    @book = current_user.books.build(book_params)
     if @book.save
       redirect_to library_user_url(current_user)
     else
       render "new"
     end
   end
+
   def edit
     @book = Book.find(params[:id])
     if(current_user.id != @book.user.id)
@@ -20,10 +21,12 @@ class BooksController < ApplicationController
       return
     end
   end
+
   def show
     @user = User.find(params[:user_id])
     @book = @user.books.find(params[:id])
   end
+
   def update
     @book = current_user.books.find(params[:id])
     unless @book
@@ -34,8 +37,6 @@ class BooksController < ApplicationController
       redirect_to [current_user, @book]
     end
   end
-
-
 
   private
   def book_params

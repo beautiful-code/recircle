@@ -10,8 +10,8 @@ class User < ActiveRecord::Base
 
   # Build a hash of book to unanswered requests
   def open_requests
-    r= Hash.new
-    self.books.each{|book| r[book]=book.unanswered_requests}
-    return r
+    open_request_hash = Hash.new
+    self.books.each{|book| open_request_hash[book]=book.unanswered_requests}
+    return open_request_hash
   end
 end

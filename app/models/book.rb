@@ -4,16 +4,16 @@ class Book < ActiveRecord::Base
   has_many :requests
 
   def unanswered_requests
-    self.requests.where(:status => 0)
+    self.requests.where(:status => Request::PENDING_CODE)
   end
+
   def self.search query
-    books =[]
     if query
-      query =query.split
-      query.each do |word|
-        books=books|where("name like ?", "%#{word}%")
+      query = query.split
+      books = query.collect do |word|
+        where("name like ?", "%#{word}%")
       end
-      return books
+      books
     else
       all
     end

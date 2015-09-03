@@ -3,6 +3,7 @@ class AppController < ApplicationController
   def index
     @books = Book.all
   end
+
   def search
     @books = Book.search (params[:search])
     render 'index'
