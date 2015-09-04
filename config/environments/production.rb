@@ -50,6 +50,7 @@ Rails.application.configure do
 
   #email_configurations
   config.action_mailer.default_url_options= {host:"http://stormy-island-4453.herokuapp.com/"}
+  config.action_mailer.perform_deliveries = true
 
   # Prepend all log lines with the following tags.
   # config.log_tags = [ :subdomain, :uuid ]
