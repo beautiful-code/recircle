@@ -1,0 +1,13 @@
+#app-index
+  - flash.each do |message_type,message|
+    %div{:class => "alert alert-#{message_type}"}= message
+  = form_tag search_path,method: 'get' do |f|
+    %p
+      = text_field_tag :search ,params[:search],class:"center-block"
+      = submit_tag "Search", name: nil,class:"center-block"
+  .container
+    %h1 Books around you
+    .row
+      - @books.each do |book|
+        .col-xs-6.col-sm-4.col-md-2
+          = link_to image_tag(book.image,class: "img-responsive",alt: book.name),user_book_path(user_id: book.user.id,id: book.id)
