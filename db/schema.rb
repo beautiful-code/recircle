@@ -13,9 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20150827111617) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "books", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "name"
@@ -25,7 +22,7 @@ ActiveRecord::Schema.define(version: 20150827111617) do
     t.boolean  "status",     default: true
   end
 
-  add_index "books", ["user_id"], name: "index_books_on_user_id", using: :btree
+  add_index "books", ["user_id"], name: "index_books_on_user_id"
 
   create_table "requests", force: :cascade do |t|
     t.integer  "user_id"
@@ -35,9 +32,9 @@ ActiveRecord::Schema.define(version: 20150827111617) do
     t.integer  "status",     default: 0
   end
 
-  add_index "requests", ["book_id"], name: "index_requests_on_book_id", using: :btree
-  add_index "requests", ["status"], name: "index_requests_on_status", using: :btree
-  add_index "requests", ["user_id"], name: "index_requests_on_user_id", using: :btree
+  add_index "requests", ["book_id"], name: "index_requests_on_book_id"
+  add_index "requests", ["status"], name: "index_requests_on_status"
+  add_index "requests", ["user_id"], name: "index_requests_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
@@ -62,12 +59,9 @@ ActiveRecord::Schema.define(version: 20150827111617) do
     t.datetime "updated_at",                          null: false
   end
 
-  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
-  add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree
+  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true
 
-  add_foreign_key "books", "users"
-  add_foreign_key "requests", "books"
-  add_foreign_key "requests", "users"
 end
