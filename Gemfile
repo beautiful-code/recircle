@@ -56,6 +56,6 @@ group :development, :test do
 end
 group :production do
   gem 'thin'
-  grm 'pg'
+  gem 'pg'
 end
 
