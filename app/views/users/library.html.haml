@@ -1,8 +1,8 @@
-.container
+.container.user-library
   %h4 My Library
   .row
   - @books.each do |book|
-    .col-xs-6.col-sm-4.col-md-2
+    .col-xs-6.col-sm-4.col-md-3
       = link_to  image_tag(book.image,class: "img-responsive",alt: book.name),user_book_path(user_id: book.user.id,id: book.id)
       = link_to "Requests  <span class='badge'>#{book.requests.where(status:Request::PENDING_CODE).count}</span>".html_safe,'#',class: 'btn btn-default'
 //    = link_to "Edit",edit_user_book_path(user_id: current_user.id,id: book.id),class: "btn btn-primary"
