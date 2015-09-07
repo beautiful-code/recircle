@@ -46,5 +46,10 @@ class RequestsController < ApplicationController
       redirect_to root_url
       return
     end
+    if Request.find_by(user_id: current_user,status: Request::PENDING_CODE)
+      flash[:danger] ="You cannot request again"
+      redirect_to root_url
+      return
+    end
   end
 end
