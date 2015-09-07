@@ -7,4 +7,5 @@
       .col-sm-3.col-md-3
         %p
           Owned By: #{link_to @user.name.capitalize,@user}
-        = button_to "Request Book",user_requests_path(user_id: current_user.id,request: {book_id: @book.id}),class: request_button_class
+        -if current_user!=@book.user
+          = button_to "Request Book",user_requests_path(user_id: current_user.id,request: {book_id: @book.id}),class: request_button_class
