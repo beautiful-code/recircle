@@ -11,7 +11,7 @@ class Book < ActiveRecord::Base
     if query
       query = query.split
       books = query.collect do |word|
-        where("name like ?", "%#{word}%")
+        where("name ilike ?", "%#{word}%")
       end
       books.flatten
     else
