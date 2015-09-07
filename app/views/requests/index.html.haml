@@ -1,10 +1,37 @@
-%h1
-  Requests
-  - @requests_hash.each do |book,requests|
-    - unless requests.count == 0
-      %h4= link_to book.name,[current_user, book]
-      - requests.each do |request|
-        %p
-          Requested By #{(link_to request.requester.name,request.requester)}
-        = button_to "Accept",accept_user_request_path(user_id: current_user.id,id: request.id),method: :patch,class: "btn btn-primary"
-        = button_to "Decline",decline_user_request_path(user_id: current_user.id,id: request.id),method: :patch,class: "btn btn-primary"
+.request-index.container
+  //Defining tabs
+  %ul.nav.nav-tabs(role="tablist")
+    %li.active(role="presentation")
+      %a(href="#requests-to-me" aria-controls="requests-to-me" role="tab" data-toggle="tab") Requests To Me
+    %li(role="presentation")
+      %a(href="#requests-by-me" aria-controls="requests-by-me" role="tab" data-toggle="tab") Requests By Me
+
+  //Tab Content
+  .tab-content
+
+    .tab-pane.active#requests-to-me(role="tabpanel")
+      - @received_requests_hash.each do |book,requests|
+        - unless requests.count == 0
+          .row
+            .col-xs-12.col-sm-4.col-md-4
+              = link_to image_tag(book.image,class:["img-responsive","center-block"]),[current_user, book]
+            .col-xs-12.col-sm-8.col-md-8
+              %h1= book.name
+              - requests.each do |request|
+                .row
+                  .col-xs-8.col-sm-8.col-md-8
+                    %h4 Requested By #{(link_to request.requester.name,request.requester)}
+                  .col-xs-2.col-sm-2.col-md-2
+                    = button_to "Accept",accept_user_request_path(user_id: current_user.id,id: request.id),method: :patch,class: "btn btn-primary"
+                  .col-xs-2.col-sm-2.col-md-2
+                    = button_to "Decline",decline_user_request_path(user_id: current_user.id,id: request.id),method: :patch,class: "btn btn-primary"
+
+
+    .tab-pane#requests-by-me(role="tabpanel")
+      - @sent_pending_requests.each do |request|
+        .row
+          .col-xs-6.col-sm-4.col-md-4
+            = link_to image_tag(request.book.image,class:["img-responsive","center-block"]),[current_user,request.book]
+          .col-xs-6.col-sm-8.col-md-8
+            %h1= request.book.name
+            %h4 status: Pending

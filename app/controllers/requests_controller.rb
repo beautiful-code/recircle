@@ -19,7 +19,8 @@ class RequestsController < ApplicationController
   end
 
   def index
-    @requests_hash = current_user.open_requests
+    @received_requests_hash = current_user.open_requests
+    @sent_pending_requests = current_user.sent_pending_requests
   end
 
   def accept
@@ -46,7 +47,7 @@ class RequestsController < ApplicationController
       redirect_to root_url
       return
     end
-    if Request.find_by(user_id: current_user,status: Request::PENDING_CODE)
+    if Request.find_by(user_id: current_user,book_id:params[:request][:book_id],status: Request::PENDING_CODE) !=nil
       flash[:danger] ="You cannot request again"
       redirect_to root_url
       return

@@ -14,4 +14,7 @@ class User < ActiveRecord::Base
     self.books.each{|book| open_request_hash[book]=book.unanswered_requests}
     return open_request_hash
   end
+  def sent_pending_requests
+    self.requests.where(status: Request::PENDING_CODE)
+  end
 end
