@@ -12,28 +12,31 @@ class RequestsController < ApplicationController
     @request = current_user.requests.build(request_params)
     if @request.save
       flash[:success] = "Successfully Requested Book"
-      redirect_to root_url
-    else
-      redirect_to root_url
     end
+
+    redirect_to request.referer
   end
 
   def index
-    @received_requests_hash = current_user.open_requests
-    @sent_pending_requests = current_user.sent_pending_requests
+    @requests_to_my_books_hash = current_user.requests_to_my_books
+    @pending_requests = current_user.pending_requests
   end
 
   def accept
     @request=Request.find(params[:id])
     @request.update_attributes(status:Request::ACCEPTED_CODE)
     @request.book.update_attributes(user_id: @request.requester.id)
-    redirect_to root_url
+    flash[:success] = 'Request accepted'
+
+    redirect_to request.referer
   end
 
   def decline
     @request=Request.find(params[:id])
     @request.update_attributes(status: Request::DECLINED_CODE)
-    redirect_to root_url
+    flash[:success] = 'Request declined'
+
+    redirect_to request.referer
   end
 
   private
@@ -42,15 +45,19 @@ class RequestsController < ApplicationController
   end
 
   def validate_request
-    if Book.find(params[:request][:book_id]).user == current_user
-      flash[:danger] ="You cannot request your own book"
-      redirect_to root_url
-      return
-    end
-    if Request.find_by(user_id: current_user,book_id:params[:request][:book_id],status: Request::PENDING_CODE) !=nil
-      flash[:danger] ="You cannot request again"
-      redirect_to root_url
-      return
+    book = Book.where(id: params[:request][:book_id]).first
+    unless book
+      flash[:danger] = 'Book no found'
+      redirect_to root_path
+    else
+      if current_user.owns?(book)
+        flash[:danger] ="You cannot request your own book"
+        redirect_to root_url
+      elsif current_user.has_an_open_request?(book)
+        flash[:danger] ="You cannot request again"
+        redirect_to root_url
+      end
     end
   end
+
 end

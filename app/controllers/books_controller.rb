@@ -7,7 +7,7 @@ class BooksController < ApplicationController
   def create
     @book = current_user.books.build(book_params)
     if @book.save
-      redirect_to library_user_url(current_user)
+      redirect_to library_user_path(current_user)
     else
       render "new"
     end
@@ -15,10 +15,9 @@ class BooksController < ApplicationController
 
   def edit
     @book = Book.find(params[:id])
-    if(current_user.id != @book.user.id)
+    if !current_user.owns?(@book)
       flash[:danger] = "You cannot update this book"
-      redirect_to root_url
-      return
+      redirect_to root_path
     end
   end
 
@@ -31,7 +30,7 @@ class BooksController < ApplicationController
     @book = current_user.books.find(params[:id])
     unless @book
       flash[:danger] = "You cannot update this book"
-      redirect_to root_url
+      redirect_to root_path
     else
       @book.update_attributes(book_params)
       redirect_to [current_user, @book]

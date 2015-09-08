@@ -9,4 +9,6 @@
   %body
     - if user_signed_in?
       = render 'layouts/navheader'
+    - flash.each do |message_type,message|
+      %div{:class => "alert alert-#{message_type}"}= message
     = yield

@@ -10,7 +10,7 @@
   .tab-content
 
     .tab-pane.active#requests-to-me(role="tabpanel")
-      - @received_requests_hash.each do |book,requests|
+      - @requests_to_my_books_hash.each do |book,requests|
         - unless requests.count == 0
           .row
             .col-xs-12.col-sm-4.col-md-4
@@ -28,10 +28,10 @@
 
 
     .tab-pane#requests-by-me(role="tabpanel")
-      - @sent_pending_requests.each do |request|
+      - @pending_requests.each do |request|
         .row
           .col-xs-6.col-sm-4.col-md-4
-            = link_to image_tag(request.book.image,class:["img-responsive","center-block"]),user_book_path(request.book.user_id,request.book)
+            = link_to image_tag(request.book.image,class:["img-responsive","center-block"]),user_book_path(request.book.owner,request.book)
           .col-xs-6.col-sm-8.col-md-8
             %h1= request.book.name
             %h4 status: Pending

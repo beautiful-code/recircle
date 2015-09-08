@@ -1,5 +1,5 @@
 class Book < ActiveRecord::Base
-  belongs_to :user
+  belongs_to :owner, class_name: 'User', foreign_key: :user_id
   validates :name,presence: true
   has_many :requests
 
@@ -7,11 +7,15 @@ class Book < ActiveRecord::Base
     self.requests.where(:status => Request::PENDING_CODE)
   end
 
+  def closed_requests
+    requests - unanswered_requests
+  end
+
   def self.search query
     if query
       query = query.split
       books = query.collect do |word|
-        where("name ilike ?", "%#{word}%")
+        Rails.env.production? ? where("name ilike ?", "%#{word}%") : where("name like ?", "%#{word}%")
       end
       books.flatten
     else

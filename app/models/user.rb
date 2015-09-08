@@ -8,13 +8,23 @@ class User < ActiveRecord::Base
   has_many :books, dependent: :destroy
   has_many :requests
 
-  # Build a hash of book to unanswered requests
-  def open_requests
-    open_request_hash = Hash.new
-    self.books.each{|book| open_request_hash[book]=book.unanswered_requests}
-    return open_request_hash
+  def owns? book
+    book.owner == self
   end
-  def sent_pending_requests
+
+  # Build a hash of book to unanswered requests
+  def requests_to_my_books
+    requests_to_my_books_hash = Hash.new
+    self.books.each{|book| requests_to_my_books_hash[book]=book.unanswered_requests}
+    requests_to_my_books_hash
+  end
+
+  def has_an_open_request? book
+    Request.find_by(user_id: self.id, book_id: book.id ,status: Request::PENDING_CODE) !=nil
+  end
+
+  def pending_requests
     self.requests.where(status: Request::PENDING_CODE)
   end
+
 end

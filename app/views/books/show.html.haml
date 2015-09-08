@@ -8,10 +8,8 @@
         .row
           %h3.pull-right
             Owned By: #{link_to @user.name.capitalize,@user}
-        -if validate_user
-          .row
-            = button_to "Request Book",user_requests_path(user_id: current_user.id,request: {book_id: @book.id}),class: request_button_class
-        -elsif @book.user == current_user
+
+        - if current_user.owns? @book
           //requests for owner only
           - requests = @book.unanswered_requests
           - requests.each do |request|
@@ -22,3 +20,10 @@
                 = button_to "Accept",accept_user_request_path(user_id: current_user.id,id: request.id),method: :patch,class: ["btn btn-primary","center-block"]
               .col-xs-2.col-sm-2.col-md-2
                 = button_to "Decline",decline_user_request_path(user_id: current_user.id,id: request.id),method: :patch,class: ["btn btn-primary","center-block"]
+
+        - else
+          - if !current_user.has_an_open_request?(@book)
+            .row
+              = button_to "Request Book",user_requests_path(user_id: current_user.id,request: {book_id: @book.id}),class: 'btn btn-primary'
+          - else
+            %h3 You already have an open request.
