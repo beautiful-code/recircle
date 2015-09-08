@@ -2,8 +2,14 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-#book-show{
+.book-show{
   img{
-    height: 500px;
+    height: 400px;
   }
+  .requests{
+    margin-top: 100px;
+  }
+  //[class^='col']{
+   // padding: 0px;
+  //}
 }

@@ -31,7 +31,7 @@
       - @sent_pending_requests.each do |request|
         .row
           .col-xs-6.col-sm-4.col-md-4
-            = link_to image_tag(request.book.image,class:["img-responsive","center-block"]),[current_user,request.book]
+            = link_to image_tag(request.book.image,class:["img-responsive","center-block"]),user_book_path(request.book.user_id,request.book)
           .col-xs-6.col-sm-8.col-md-8
             %h1= request.book.name
             %h4 status: Pending

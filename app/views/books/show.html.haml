@@ -1,11 +1,24 @@
-#book-show
+.book-show
   = div_for(@book,class: "container") do
-    %h2= @book.name
     .row
-      .col-sm-9.col-md-9
-        = image_tag(@book.image,class: "img-responsive",alt: @book.name)
-      .col-sm-3.col-md-3
-        %p
-          Owned By: #{link_to @user.name.capitalize,@user}
-        -if current_user!=@book.user
-          = button_to "Request Book",user_requests_path(user_id: current_user.id,request: {book_id: @book.id}),class: request_button_class
+      .col-xs-12.col-sm-5.col-md-6
+        %h2.text-center= @book.name
+        = image_tag(@book.image,class: ["center-block","img-responsive"],alt: @book.name)
+      .col-xs-12.col-sm-7.col-md-6
+        .row
+          %h3.pull-right
+            Owned By: #{link_to @user.name.capitalize,@user}
+        -if validate_user
+          .row
+            = button_to "Request Book",user_requests_path(user_id: current_user.id,request: {book_id: @book.id}),class: request_button_class
+        -elsif @book.user == current_user
+          //requests for owner only
+          - requests = @book.unanswered_requests
+          - requests.each do |request|
+            .row.requests
+              .col-xs-8.col-sm-8.col-md-8
+                %h4 Requested By #{(link_to request.requester.name,request.requester)}
+              .col-xs-2.col-sm-2.col-md-2
+                = button_to "Accept",accept_user_request_path(user_id: current_user.id,id: request.id),method: :patch,class: ["btn btn-primary","center-block"]
+              .col-xs-2.col-sm-2.col-md-2
+                = button_to "Decline",decline_user_request_path(user_id: current_user.id,id: request.id),method: :patch,class: ["btn btn-primary","center-block"]
