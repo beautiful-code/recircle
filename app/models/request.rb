@@ -1,5 +1,6 @@
 class Request < ActiveRecord::Base
   belongs_to :requester, class_name: 'User', foreign_key: :user_id
+  belongs_to :owner, class_name: 'User',foreign_key: :owner_id
   belongs_to :book
 
   PENDING_CODE = 0

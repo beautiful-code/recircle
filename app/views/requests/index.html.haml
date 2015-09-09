@@ -25,6 +25,19 @@
                     = button_to "Accept",accept_user_request_path(user_id: current_user.id,id: request.id),method: :patch,class: "btn btn-primary"
                   .col-xs-2.col-sm-2.col-md-2
                     = button_to "Decline",decline_user_request_path(user_id: current_user.id,id: request.id),method: :patch,class: "btn btn-primary"
+      %h3 History
+      %table.table
+        %thead
+          %tr
+            %th Book
+            %th Status
+        %tbody
+          - current_user.requests_to_me_history.each do |request|
+            %tr
+              %td
+                = link_to request.book.name,[request.book.owner,request.book]
+              %td
+                = request_status request
 
 
     .tab-pane#requests-by-me(role="tabpanel")

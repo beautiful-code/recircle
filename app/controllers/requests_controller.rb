@@ -10,6 +10,7 @@ class RequestsController < ApplicationController
       #return
     #end
     @request = current_user.requests.build(request_params)
+    @request.owner = @request.book.owner
     if @request.save
       flash[:success] = "Successfully Requested Book"
     end
