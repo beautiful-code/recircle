@@ -13,14 +13,15 @@
           //requests for owner only
           .row
             = link_to "Edit",edit_user_book_path(user_id: current_user.id,id: @book.id),class: ["btn btn-primary","pull-right"]
-          - @book.unanswered_requests.each do |request|
-            .row.requests
-              .col-xs-8.col-sm-8.col-md-8
-                %h4 Requested By #{(link_to request.requester.name,request.requester)}
-              .col-xs-2.col-sm-2.col-md-2
-                = button_to "Accept",accept_user_request_path(user_id: current_user.id,id: request.id),method: :patch,class: ["btn btn-primary","center-block"]
-              .col-xs-2.col-sm-2.col-md-2
-                = button_to "Decline",decline_user_request_path(user_id: current_user.id,id: request.id),method: :patch,class: ["btn btn-primary","center-block"]
+          .requests
+            - @book.unanswered_requests.each do |request|
+              .row
+                .col-xs-8.col-sm-8.col-md-8
+                  %h4 Requested By #{(link_to request.requester.name,request.requester)}
+                .col-xs-2.col-sm-2.col-md-2
+                  = button_to "Accept",accept_user_request_path(user_id: current_user.id,id: request.id),method: :patch,class: ["btn btn-primary","center-block"]
+                .col-xs-2.col-sm-2.col-md-2
+                  = button_to "Decline",decline_user_request_path(user_id: current_user.id,id: request.id),method: :patch,class: ["btn btn-primary","center-block"]
 
         - else
           - if !current_user.has_an_open_request?(@book)
