@@ -5,5 +5,5 @@ class Request < ActiveRecord::Base
   PENDING_CODE = 0
   ACCEPTED_CODE = 1
   DECLINED_CODE = 2
-
+  CANCELED_CODE = 3
 end

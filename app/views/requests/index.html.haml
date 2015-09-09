@@ -34,4 +34,21 @@
             = link_to image_tag(request.book.image,class:["img-responsive","center-block"]),user_book_path(request.book.owner,request.book)
           .col-xs-6.col-sm-8.col-md-8
             %h1= request.book.name
-            %h4 status: Pending
+            .row
+              .col-xs-10.col-sm-10.col-md-10
+                %h4 status: Pending
+              .col-xs-2.col-sm-2.col-md-2
+                = button_to "Cancel",cancel_user_request_path(user_id: current_user.id,id: request.id),method: :patch,class: "btn btn-primary"
+      %h3 History
+      %table.table
+        %thead
+          %tr
+            %th Book
+            %th Status
+        %tbody
+          - current_user.requests_history.each do |request|
+            %tr
+              %td
+                = link_to request.book.name,[request.book.owner,request.book]
+              %td
+                = request_status request

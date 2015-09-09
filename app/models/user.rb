@@ -8,8 +8,14 @@ class User < ActiveRecord::Base
   has_many :books, dependent: :destroy
   has_many :requests
 
+  #Whether user own book or not
   def owns? book
     book.owner == self
+  end
+
+  #User is requester or not
+  def requester? request
+    request.requester == self
   end
 
   # Build a hash of book to unanswered requests
@@ -25,6 +31,10 @@ class User < ActiveRecord::Base
 
   def pending_requests
     self.requests.where(status: Request::PENDING_CODE)
+  end
+
+  def requests_history
+    self.requests.where(status:[Request::ACCEPTED_CODE,Request::DECLINED_CODE,Request::CANCELED_CODE]).order(created_at: :desc)
   end
 
 end

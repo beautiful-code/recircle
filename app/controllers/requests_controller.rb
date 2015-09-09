@@ -24,17 +24,36 @@ class RequestsController < ApplicationController
 
   def accept
     @request=Request.find(params[:id])
-    @request.update_attributes(status:Request::ACCEPTED_CODE)
-    @request.book.update_attributes(user_id: @request.requester.id)
-    flash[:success] = 'Request accepted'
+    if current_user.owns? (@request.book)
+      @request.update_attributes(status: Request::ACCEPTED_CODE)
+      @request.book.update_attributes(user_id: @request.requester.id)
+      flash[:success] = 'Request accepted'
+    else
+      flash[:danger] = 'You cannot update this book'
+    end
 
     redirect_to request.referer
   end
 
   def decline
     @request=Request.find(params[:id])
-    @request.update_attributes(status: Request::DECLINED_CODE)
-    flash[:success] = 'Request declined'
+    if current_user.owns? (@request.book)
+      @request.update_attributes(status: Request::DECLINED_CODE)
+      flash[:success] = 'Request declined'
+    else
+      flash[:danger] = 'You cannot update this book'
+    end
+
+    redirect_to request.referer
+  end
+  def cancel
+    @request=Request.find(params[:id])
+    if current_user.requester?(@request)
+      @request.update_attributes(status: Request::CANCELED_CODE)
+      flash[:success] = 'Request canceled'
+    else
+      flash[:warning] = 'You cannot cancel this book'
+    end
 
     redirect_to request.referer
   end
