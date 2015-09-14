@@ -5,7 +5,11 @@ Rails.application.routes.draw do
 
 
   resources :users,only:[:show]  do
-    resources :books,only: [:new,:show,:edit,:update, :create]
+    resources :books,only: [:new,:show,:edit,:update, :create] do
+      patch 'lock'
+      patch 'unlock'
+      patch 'give_back'
+    end
     resources :requests, only: [:create, :index] do
       member do
         patch 'accept'

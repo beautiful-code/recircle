@@ -1,7 +1,12 @@
 .container.user-library
   %h4 My Library
   .row
-  - @books.each do |book|
-    .col-xs-6.col-sm-4.col-md-3
-      = link_to  image_tag(book.image,class: "img-responsive",alt: book.name),user_book_path(user_id: book.owner, id: book)
-      = link_to "Requests  <span class='badge'>#{book.unanswered_requests.count}</span>".html_safe,user_book_path(user_id: book.owner,id: book.id),class: ['btn btn-default','center-block']
+    - @books.each do |book|
+      .col-xs-6.col-sm-4.col-md-3
+        = link_to  image_tag(book.image,class: "img-responsive",alt: book.name),user_book_path(user_id: book.owner, id: book)
+        = link_to "Requests  <span class='badge'>#{book.unanswered_requests.count}</span>".html_safe,user_book_path(user_id: book.owner,id: book.id),class: ['btn btn-default','center-block']
+  %h4 Lended Books
+  .row
+    - @lent_books.each do |book|
+      .col-xs-6.col-sm-4.col-md-3
+        = link_to  image_tag(book.image,class: "img-responsive",alt: book.name),user_book_path(user_id: book.owner, id: book)

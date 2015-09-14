@@ -8,12 +8,15 @@ class User < ActiveRecord::Base
   has_many :books, dependent: :destroy
   has_many :requests
   has_many :requests_to_me,class_name: 'Request',foreign_key: :owner_id
+  has_many :lent_books,class_name: 'Book',foreign_key: :lender_id
 
   #Whether user own book or not
   def owns? book
     book.owner == self
   end
-
+  def lent? book
+    book.lender == self
+  end
   #User is requester or not
   def requester? request
     request.requester == self

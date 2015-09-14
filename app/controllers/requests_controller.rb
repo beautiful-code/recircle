@@ -16,8 +16,8 @@ class RequestsController < ApplicationController
     end
 
     redirect_to request.referer
-  end
 
+  end
   def index
     @requests_to_my_books_hash = current_user.requests_to_my_books
     @pending_requests = current_user.pending_requests
@@ -27,13 +27,17 @@ class RequestsController < ApplicationController
     @request=Request.find(params[:id])
     if current_user.owns? (@request.book)
       @request.update_attributes(status: Request::ACCEPTED_CODE)
-      @request.book.update_attributes(user_id: @request.requester.id)
+      if @request.request_type == Request::GIVE_AWAY
+        @request.book.update_attributes(user_id: @request.requester.id)
+      else
+        @request.book.update_attributes(lender_id: @request.requester.id)
+      end
       flash[:success] = 'Request accepted'
     else
       flash[:danger] = 'You cannot update this book'
     end
 
-    redirect_to request.referer
+    redirect_to user_requests_path(current_user)
   end
 
   def decline
@@ -61,7 +65,7 @@ class RequestsController < ApplicationController
 
   private
   def request_params
-    params.require(:request).permit(:book_id)
+    params.require(:request).permit(:book_id,:message,:request_type)
   end
 
   def validate_request
@@ -72,6 +76,9 @@ class RequestsController < ApplicationController
     else
       if current_user.owns?(book)
         flash[:danger] ="You cannot request your own book"
+        redirect_to root_url
+      elsif book.lock?
+        flash[:danger] ="You cannot request locked book"
         redirect_to root_url
       elsif current_user.has_an_open_request?(book)
         flash[:danger] ="You cannot request again"

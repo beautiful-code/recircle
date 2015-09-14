@@ -13,19 +13,44 @@
           //requests for owner only
           .row
             = link_to "Edit",edit_user_book_path(user_id: current_user.id,id: @book.id),class: ["btn btn-primary","pull-right"]
+            - unless @book.lock?
+              = button_to "Lock Book",user_book_lock_path(user_id: current_user.id,book_id: @book.id),method: :patch,class: ["btn btn-primary","pull-right"]
+            - else
+              = button_to "Unlock Book",user_book_unlock_path(user_id: current_user.id,book_id: @book.id),method: :patch,class: ["btn btn-primary","pull-right"]
           .requests
             - @book.unanswered_requests.each do |request|
               .row
-                .col-xs-8.col-sm-8.col-md-8
+                .col-xs-4.col-sm-4.col-md-4
                   %h4 Requested By #{(link_to request.requester.name,request.requester)}
+                .col-xs-4.col-sm-4.col-md-4
+                  %h4 #{(request.message)}
                 .col-xs-2.col-sm-2.col-md-2
                   = button_to "Accept",accept_user_request_path(user_id: current_user.id,id: request.id),method: :patch,class: ["btn btn-primary","center-block"]
                 .col-xs-2.col-sm-2.col-md-2
                   = button_to "Decline",decline_user_request_path(user_id: current_user.id,id: request.id),method: :patch,class: ["btn btn-primary","center-block"]
 
         - else
-          - if !current_user.has_an_open_request?(@book)
-            .row
-              = button_to "Request Book",user_requests_path(user_id: current_user.id,request: {book_id: @book.id}),class: 'btn btn-primary'
-          - else
+          - if @book.lock?
+            %h3 Book is locked by user
+          - elsif current_user.lent? @book
+            %h3 You had this book
+            = button_to "Give Back",user_book_give_back_path(user_id:current_user,book_id:@book),method: :patch,class: "btn btn-primary"
+          - elsif current_user.has_an_open_request?(@book)
             %h3 You already have an open request.
+          - else
+            .row
+              = form_for [current_user,@request] do |f|
+                .form-group
+                  = f.label :message
+                  = f.text_field :message,autofocus: true,class: 'form-control'
+                  = f.hidden_field :book_id, value: @book.id
+                  = f.hidden_field :request_type, value: Request::GIVE_AWAY
+                = f.submit "Request Book",class: "btn btn-primary"
+            .row
+              = form_for [current_user,@request] do |f|
+                .form-group
+                  = f.label :message
+                  = f.text_field :message,autofocus: true,class: 'form-control'
+                  = f.hidden_field :book_id, value: @book.id
+                  = f.hidden_field :request_type, value: Request::LEND
+                = f.submit "Lend Book",class: "btn btn-primary"

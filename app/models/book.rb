@@ -1,5 +1,6 @@
 class Book < ActiveRecord::Base
   belongs_to :owner, class_name: 'User', foreign_key: :user_id
+  belongs_to :lender, class_name: 'User',foreign_key: :lender_id
   validates :name,presence: true
   has_many :requests
 
@@ -9,6 +10,9 @@ class Book < ActiveRecord::Base
 
   def closed_requests
     requests - unanswered_requests
+  end
+  def lock?
+    self.state == "locked"
   end
 
   def self.search query

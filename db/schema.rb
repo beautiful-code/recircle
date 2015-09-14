@@ -11,15 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150909110032) do
+ActiveRecord::Schema.define(version: 20150914061830) do
 
   create_table "books", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "name"
     t.string   "image"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.boolean  "status",     default: true
+    t.string   "state",      default: "unlocked"
+    t.integer  "lender_id"
   end
 
   add_index "books", ["user_id"], name: "index_books_on_user_id"
@@ -27,10 +29,12 @@ ActiveRecord::Schema.define(version: 20150909110032) do
   create_table "requests", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "book_id"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.integer  "status",     default: 0
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "status",       default: 0
     t.integer  "owner_id"
+    t.string   "message"
+    t.integer  "request_type", default: 0
   end
 
   add_index "requests", ["book_id"], name: "index_requests_on_book_id"
