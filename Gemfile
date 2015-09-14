@@ -37,8 +37,8 @@ gem 'haml-rails'
 gem 'haml' , '~> 4.0.7'
 
 #RSPEC
+gem 'rspec-rails' , '~> 3.3.0'
 
-gem 'rspec' , '~> 3.3.0'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
