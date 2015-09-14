@@ -32,7 +32,7 @@
         - else
           - if @book.lock?
             %h3 Book is locked by user
-          - elsif current_user.lent? @book
+          - elsif current_user.borrowed? @book
             %h3 You had this book
             = button_to "Give Back",user_book_give_back_path(user_id:current_user,book_id:@book),method: :patch,class: "btn btn-primary"
           - elsif current_user.has_an_open_request?(@book)

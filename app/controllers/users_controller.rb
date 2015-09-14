@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   def library
     @user = User.find(params[:id])
     @books = @user.books
-    @lent_books = @user.lent_books
+    @borrowed_books = @user.borrowed_books
   end
 
   def account

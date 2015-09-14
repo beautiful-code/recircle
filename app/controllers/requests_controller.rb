@@ -16,8 +16,8 @@ class RequestsController < ApplicationController
     end
 
     redirect_to request.referer
-
   end
+
   def index
     @requests_to_my_books_hash = current_user.requests_to_my_books
     @pending_requests = current_user.pending_requests
@@ -26,12 +26,7 @@ class RequestsController < ApplicationController
   def accept
     @request=Request.find(params[:id])
     if current_user.owns? (@request.book)
-      @request.update_attributes(status: Request::ACCEPTED_CODE)
-      if @request.request_type == Request::GIVE_AWAY
-        @request.book.update_attributes(user_id: @request.requester.id)
-      else
-        @request.book.update_attributes(lender_id: @request.requester.id)
-      end
+      @request.accept
       flash[:success] = 'Request accepted'
     else
       flash[:danger] = 'You cannot update this book'
@@ -51,6 +46,7 @@ class RequestsController < ApplicationController
 
     redirect_to request.referer
   end
+
   def cancel
     @request=Request.find(params[:id])
     if current_user.requester?(@request)

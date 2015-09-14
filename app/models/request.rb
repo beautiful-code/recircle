@@ -12,4 +12,13 @@ class Request < ActiveRecord::Base
   #request_state codes
   GIVE_AWAY = 0
   LEND =1
+
+  def accept
+    self.update_attributes(status: Request::ACCEPTED_CODE)
+    if self.request_type == Request::GIVE_AWAY
+      self.book.update_attributes(user_id: self.requester.id)
+    else
+      self.book.update_attributes(borrower_id: self.requester.id)
+    end
+  end
 end

@@ -20,11 +20,12 @@ class BooksController < ApplicationController
       redirect_to root_path
     end
   end
+
   def give_back
     @book = Book.find(params[:book_id])
-    if current_user.lent?(@book)
+    if current_user.borrowed?(@book)
+      @book.update_attributes(borrower_id:nil)
       flash[:success] = "Successfully given back"
-      @book.update_attributes(lender_id:nil)
     end
     redirect_to root_path
   end
@@ -45,6 +46,7 @@ class BooksController < ApplicationController
       redirect_to [current_user, @book]
     end
   end
+
   def lock
     @book = current_user.books.where(id:params[:book_id]).first
     if @book
@@ -53,6 +55,7 @@ class BooksController < ApplicationController
     end
     redirect_to request.referer
   end
+
   def unlock
     @book = current_user.books.where(id:params[:book_id]).first
     if @book

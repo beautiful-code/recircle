@@ -17,11 +17,11 @@ ActiveRecord::Schema.define(version: 20150914061830) do
     t.integer  "user_id"
     t.string   "name"
     t.string   "image"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
-    t.boolean  "status",     default: true
-    t.string   "state",      default: "unlocked"
-    t.integer  "lender_id"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.boolean  "status",      default: true
+    t.string   "state",       default: "unlocked"
+    t.integer  "borrower_id"
   end
 
   add_index "books", ["user_id"], name: "index_books_on_user_id"
