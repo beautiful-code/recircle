@@ -38,7 +38,7 @@
           - current_user.requests_to_me_history.each do |request|
             %tr
               %td
-                = request.created_at
+                = time_format request.created_at
               %td
                 = link_to request.book.name,[request.book.owner,request.book]
               %td
@@ -61,11 +61,14 @@
       %table.table
         %thead
           %tr
+            %th Date
             %th Book
             %th Status
         %tbody
           - current_user.requests_history.each do |request|
             %tr
+              %td
+                = time_format request.created_at
               %td
                 = link_to request.book.name,[request.book.owner,request.book]
               %td

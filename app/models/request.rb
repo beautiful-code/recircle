@@ -9,7 +9,7 @@ class Request < ActiveRecord::Base
   DECLINED_CODE = 2
   CANCELED_CODE = 3
 
-  #request_state codes
+  #request_type codes
   GIVE_AWAY = 0
   LEND =1
 

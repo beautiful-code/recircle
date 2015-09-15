@@ -4,8 +4,15 @@ class Book < ActiveRecord::Base
   validates :name,presence: true
   has_many :requests
 
+  #Condition of Book
+  NEW =0
+  USED =1
+
   def unanswered_requests
     self.requests.where(:status => Request::PENDING_CODE)
+  end
+  def borrowed?
+    self.borrower
   end
 
   def closed_requests

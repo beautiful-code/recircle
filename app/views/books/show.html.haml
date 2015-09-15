@@ -35,6 +35,8 @@
           - elsif current_user.borrowed? @book
             %h3 You had this book
             = button_to "Give Back",user_book_give_back_path(user_id:current_user,book_id:@book),method: :patch,class: "btn btn-primary"
+          - elsif @book.borrowed?
+            %h3 This book is borrowed you cannot request
           - elsif current_user.has_an_open_request?(@book)
             %h3 You already have an open request.
           - else
