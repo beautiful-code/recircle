@@ -2,6 +2,8 @@ class Request < ActiveRecord::Base
   belongs_to :requester, class_name: 'User', foreign_key: :user_id
   belongs_to :owner, class_name: 'User',foreign_key: :owner_id
   belongs_to :book
+  self.inheritance_column =:request_type
+
 
   #request status codes
   PENDING_CODE = 0
@@ -10,15 +12,14 @@ class Request < ActiveRecord::Base
   CANCELED_CODE = 3
 
   #request_type codes
-  GIVE_AWAY = 0
-  LEND =1
+  GIVE_AWAY = "GiveAwayRequest"
+  LEND = "LendRequest"
 
-  def accept
-    self.update_attributes(status: Request::ACCEPTED_CODE)
-    if self.request_type == Request::GIVE_AWAY
-      self.book.update_attributes(user_id: self.requester.id)
-    else
-      self.book.update_attributes(borrower_id: self.requester.id)
-    end
+  def self.request_types
+    %w(GiveAwayRequest LendRequest)
   end
+
+  scope :give_away_requests,-> {where(request_type: GIVE_AWAY)}
+  scope :lend_requests , -> {where(request_type: LEND)}
+
 end

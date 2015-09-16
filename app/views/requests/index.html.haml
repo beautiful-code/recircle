@@ -20,7 +20,7 @@
               - requests.each do |request|
                 .row
                   .col-xs-4.col-sm-4.col-md-4
-                    %h4 #{request_type request }Request By #{(link_to request.requester.name,request.requester)}
+                    %h4 #{request.request_type }By #{(link_to request.requester.name,request.requester)}
                   .col-xs-4.col-sm-4.col-md-4
                     %h4 #{(request.message)}
                   .col-xs-2.col-sm-2.col-md-2

@@ -10,24 +10,27 @@
             Owned By: #{link_to @user.name.capitalize,@user}
 
         - if current_user.owns? @book
-          //requests for owner only
-          .row
-            = link_to "Edit",edit_user_book_path(user_id: current_user.id,id: @book.id),class: ["btn btn-primary","pull-right"]
-            - unless @book.lock?
-              = button_to "Lock Book",user_book_lock_path(user_id: current_user.id,book_id: @book.id),method: :patch,class: ["btn btn-primary","pull-right"]
-            - else
-              = button_to "Unlock Book",user_book_unlock_path(user_id: current_user.id,book_id: @book.id),method: :patch,class: ["btn btn-primary","pull-right"]
-          .requests
-            - @book.unanswered_requests.each do |request|
-              .row
-                .col-xs-4.col-sm-4.col-md-4
-                  %h4 Requested By #{(link_to request.requester.name,request.requester)}
-                .col-xs-4.col-sm-4.col-md-4
-                  %h4 #{(request.message)}
-                .col-xs-2.col-sm-2.col-md-2
-                  = button_to "Accept",accept_user_request_path(user_id: current_user.id,id: request.id),method: :patch,class: ["btn btn-primary","center-block"]
-                .col-xs-2.col-sm-2.col-md-2
-                  = button_to "Decline",decline_user_request_path(user_id: current_user.id,id: request.id),method: :patch,class: ["btn btn-primary","center-block"]
+          - if @book.borrowed?
+            %h3 Book is borrowed you cannot do any operations
+          - else
+            //requests for owner only
+            .row
+              = link_to "Edit",edit_user_book_path(user_id: current_user.id,id: @book.id),class: ["btn btn-primary","pull-right"]
+              - unless @book.lock?
+                = button_to "Lock Book",user_book_lock_path(user_id: current_user.id,book_id: @book.id),method: :patch,class: ["btn btn-primary","pull-right"]
+              - else
+                = button_to "Unlock Book",user_book_unlock_path(user_id: current_user.id,book_id: @book.id),method: :patch,class: ["btn btn-primary","pull-right"]
+            .requests
+              - @book.unanswered_requests.each do |request|
+                .row
+                  .col-xs-4.col-sm-4.col-md-4
+                    %h4 Requested By #{(link_to request.requester.name,request.requester)}
+                  .col-xs-4.col-sm-4.col-md-4
+                    %h4 #{(request.message)}
+                  .col-xs-2.col-sm-2.col-md-2
+                    = button_to "Accept",accept_user_request_path(user_id: current_user.id,id: request.id),method: :patch,class: ["btn btn-primary","center-block"]
+                  .col-xs-2.col-sm-2.col-md-2
+                    = button_to "Decline",decline_user_request_path(user_id: current_user.id,id: request.id),method: :patch,class: ["btn btn-primary","center-block"]
 
         - else
           - if @book.lock?

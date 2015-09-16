@@ -36,12 +36,12 @@ gem 'devise', '~> 3.5.2'
 gem 'haml-rails'
 gem 'haml' , '~> 4.0.7'
 
-#RSPEC
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
+  #RSPEC
   gem 'rspec-rails' , '~> 3.3.0'
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3'

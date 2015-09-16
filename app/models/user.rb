@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   validates :name, presence: true
   has_many :books, dependent: :destroy
   has_many :requests
+  delegate :give_away_requests,:lend_requests, to: :requests
   has_many :requests_to_me,class_name: 'Request',foreign_key: :owner_id
   has_many :borrowed_books,class_name: 'Book',foreign_key: :borrower_id
 
