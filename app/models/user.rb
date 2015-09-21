@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   delegate :give_away_requests,:lend_requests, to: :requests
   has_many :requests_to_me,class_name: 'Request',foreign_key: :owner_id
   has_many :borrowed_books,class_name: 'Book',foreign_key: :borrower_id
+  has_many :notifications
 
   #Whether user own book or not
   def owns? book
@@ -46,6 +47,10 @@ class User < ActiveRecord::Base
 
   def requests_to_me_history
     self.requests_to_me.where.not(status:Request::PENDING_CODE).order(created_at: :desc)
+  end
+
+  def unread_notifications
+    self.notifications.where(read_status:Notification::UNREAD)
   end
 
 end

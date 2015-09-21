@@ -1,0 +1,7 @@
+.container
+  - @notifications.each do |notification|
+    .row
+      .col-md-6
+        = message(notification)
+      .col-md-6
+        = button_to "Mark as read",read_user_notification_path(user_id:current_user,id:notification.id),method: :patch,class: "btn btn-primary"

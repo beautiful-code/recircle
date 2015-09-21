@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'notifications/index'
+
   devise_for :users, path_names: {sign_in: "login"},controllers: {registrations:'users/registrations'}
   root 'app#index'
   get 'search' => 'app#search'
@@ -15,6 +17,11 @@ Rails.application.routes.draw do
         patch 'accept'
         patch 'decline'
         patch 'cancel'
+      end
+    end
+    resources :notifications,only:[:index] do
+      member do
+        patch 'read'
       end
     end
 

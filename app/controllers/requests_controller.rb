@@ -4,16 +4,12 @@ class RequestsController < ApplicationController
 
 
   def create
-    #if (Book.find(params[:request][:book_id]).status == false)
-      #flash[:danger] = "Book Not Available"
-      #redirect_to root_url
-      #return
-    #end
     @request = current_user.requests.build(request_params)
     @request.owner = @request.book.owner
     if @request.save
       flash[:success] = "Successfully Requested Book"
     end
+    Event.create_request_event(@request,Event::NEW_REQUEST)
 
     redirect_to request.referer
   end
@@ -38,7 +34,7 @@ class RequestsController < ApplicationController
   def decline
     @request=Request.find(params[:id])
     if current_user.owns? (@request.book)
-      @request.update_attributes(status: Request::DECLINED_CODE)
+      @request.decline
       flash[:success] = 'Request declined'
     else
       flash[:danger] = 'You cannot update this book'
@@ -50,7 +46,7 @@ class RequestsController < ApplicationController
   def cancel
     @request=Request.find(params[:id])
     if current_user.requester?(@request)
-      @request.update_attributes(status: Request::CANCELED_CODE)
+      @request.cancel
       flash[:success] = 'Request canceled'
     else
       flash[:warning] = 'You cannot cancel this book'

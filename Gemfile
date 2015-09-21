@@ -29,6 +29,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 #Authentication and Session
 gem 'devise', '~> 3.5.2'
 
+#Delayed Job
+gem 'delayed_job_active_record'
 
 # Use Unicorn as the app server
 # gem 'unicorn'

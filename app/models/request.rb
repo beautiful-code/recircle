@@ -22,4 +22,11 @@ class Request < ActiveRecord::Base
   scope :give_away_requests,-> {where(request_type: GIVE_AWAY)}
   scope :lend_requests , -> {where(request_type: LEND)}
 
+  def cancel
+    self.update_attributes(status: Request::CANCELED_CODE)
+  end
+  def decline
+    self.update_attributes(status: Request::DECLINED_CODE)
+    Event.create_request_event(self,Event::REQUEST_DECLINED)
+  end
 end
