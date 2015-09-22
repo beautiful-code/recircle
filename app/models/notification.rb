@@ -6,6 +6,7 @@ class Notification < ActiveRecord::Base
   #NOTIFICATION STATUS
   UNREAD = 0
   READ =1
+
   #Notification type
   NEW = "NewRequestNotification"
   DECLINED = "RequestDeclinedNotification"
