@@ -21,8 +21,11 @@ class RequestsController < ApplicationController
 
   def accept
     @request=Request.find(params[:id])
-    if current_user.owns? (@request.book)
+    if current_user.owns?(@request.book) && !@request.book.borrowed?
       @request.accept
+      @request.book.unanswered_requests.each do|request|
+        request.decline
+      end
       flash[:success] = 'Request accepted'
     else
       flash[:danger] = 'You cannot update this book'
@@ -71,6 +74,9 @@ class RequestsController < ApplicationController
         redirect_to root_url
       elsif book.lock?
         flash[:danger] ="You cannot request locked book"
+        redirect_to root_url
+      elsif book.borrowed?
+        flash[:danger] = "You cannot request borrowed book"
         redirect_to root_url
       elsif current_user.has_an_open_request?(book)
         flash[:danger] ="You cannot request again"
