@@ -11,7 +11,7 @@
 
         - if current_user.owns? @book
           - if @book.borrowed?
-            %h3 Book is borrowed you cannot do any operations
+            %h3 This book is borrowed by #{link_to @book.borrower.name,[@book.borrower]}
           - else
             //requests for owner only
             .row
@@ -39,9 +39,9 @@
             %h3 You had this book
             = button_to "Give Back",user_book_give_back_path(user_id:current_user,book_id:@book),method: :patch,class: "btn btn-primary"
           - elsif @book.borrowed?
-            %h3 This book is borrowed you cannot request
+            %h3 This book is borrowed by = @book.user
           - elsif current_user.has_an_open_request?(@book)
-            %h3 You already have an open request.
+            %h3 You request is in pending
           - else
             .row
               = form_for [current_user,@request] do |f|
@@ -58,4 +58,4 @@
                   = f.text_field :message,autofocus: true,class: 'form-control'
                   = f.hidden_field :book_id, value: @book.id
                   = f.hidden_field :request_type, value: Request::LEND
-                = f.submit "Lend Book",class: "btn btn-primary"
+                = f.submit "Borrow Book",class: "btn btn-primary"
