@@ -50,7 +50,7 @@ class User < ActiveRecord::Base
   end
 
   def unread_notifications
-    self.notifications.where(read_status:Notification::UNREAD)
+    self.notifications.where(read_status:Notification::UNREAD).order(created_at: :desc)
   end
 
 end
