@@ -1,0 +1,2 @@
+- @notifications.each do |notification|
+  %li #{message(notification)} #{button_to "*".html_safe,read_user_notification_path(user_id:current_user,id:notification.id),method: :patch}
