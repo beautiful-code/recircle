@@ -8,15 +8,13 @@
     = csrf_meta_tags
   %body
     - if user_signed_in?
+      .hidden
+        = link_to "Notification", user_notifications_path(current_user), remote:true, id:"notify"
       = render 'layouts/navheader'
-      = link_to "Notification",user_notifications_path(current_user),remote:true,id:"notify"
+
+
     - flash.each do |message_type,message|
       %div{:class => "alert alert-#{message_type}"}= message
+
     = yield
-:javascript
-  $('#notify').hide()
-  $('#notify').click()
-  get_notifications = function(){
-    $('#notify').click()
-  }
-  setInterval(get_notifications,30000)
+

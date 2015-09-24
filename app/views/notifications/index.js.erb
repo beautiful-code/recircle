@@ -1,3 +1,3 @@
-$('#notifications span').text('<%= j render("count")%>')
-$('#notifications li').remove()
-$('#notifications ul').append('<%= j render("list")%>')
+$('#notifications span').text('<%= @notifications.count %>');
+$('#notifications ul').empty();
+$('#notifications ul').append('<%= j render("list")%>');

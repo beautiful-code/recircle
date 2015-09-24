@@ -1,3 +1,44 @@
-// Place all the styles related to the Notifications controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+#notifications {
+  .dropdown-menu > li > a:hover {
+    background: none;
+  }
+
+  .dropdown-menu > li > a {
+    display: inline-block;
+    border: none;
+    background: none;
+    color: #47a6d1;
+    text-decoration: underline;
+    font-size: 12px;
+    background-image: none;
+    background-color: none;
+    padding: 0;
+  }
+
+  .dropdown-menu {
+    width: 350px;
+    border-top: 0;
+    padding-bottom: 0;
+
+    form {
+      display: inline-block;
+      float: right;
+    }
+
+    li {
+      padding: 5px 15px;
+      font-size: 12px;
+      border-bottom: 1px dotted #ddd;
+
+      button {
+        display: inline;
+        border: none;
+        background: none;
+        color: red;
+      }
+    }
+  }
+
+}
+
+

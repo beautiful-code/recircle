@@ -11,14 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150921110114) do
+ActiveRecord::Schema.define(version: 20150924112505) do
 
   create_table "books", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "name"
-    t.string   "image"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.string   "image",       default: "http://l7connect.com/wp-content/uploads/2015/06/no-preview.png"
+    t.datetime "created_at",                                                                             null: false
+    t.datetime "updated_at",                                                                             null: false
     t.string   "state",       default: "unlocked"
     t.integer  "borrower_id"
     t.integer  "condition",   default: 0

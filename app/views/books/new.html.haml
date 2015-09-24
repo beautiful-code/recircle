@@ -8,3 +8,8 @@
       = f.label :image
       = f.text_field :image,autofocus: true,class: 'form-control'
     = f.submit "Add Book" ,class: 'btn btn-primary'
+  = form_for [current_user,@book] do
+    .form-group
+      = label_tag "isbn_number"
+      = text_field_tag "isbn_number",nil,class:"form-control"
+    = submit_tag "Add Book",class: 'btn btn-primary'

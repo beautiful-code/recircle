@@ -2,10 +2,29 @@ class BooksController < ApplicationController
   before_action :authenticate_user!
   def new
     @book = Book.new
+    @book.image=""
   end
 
   def create
-    @book = current_user.books.build(book_params)
+
+    if(params["isbn_number"])
+      book_response = JSON.parse(get_book_details())
+      if book_response["totalItems"] == 0
+        flash[:danger] ="Book for given isbn not found"
+        redirect_to request.referer
+        return
+      else
+        book=book_response["items"][0]["volumeInfo"]
+        if book["imageLinks"]
+          @book=current_user.books.build(name:book["title"],image:book["imageLinks"]["thumbnail"])
+        else
+          @book=current_user.books.build(name:book["title"])
+        end
+      end
+    else
+      @book = current_user.books.build(book_params)
+    end
+
     if @book.save
       redirect_to library_user_path(current_user)
     else
@@ -68,5 +87,8 @@ class BooksController < ApplicationController
   private
   def book_params
     params.require(:book).permit(:name,:image,:user_id)
+  end
+  def get_book_details
+    RestClient.get("https://www.googleapis.com/books/v1/volumes?q=+isbn:#{params["isbn_number"]}&key=AIzaSyCiQ_Ia7tUXRw18aDT9kiq5bjbmCYYaVzw")
   end
 end
