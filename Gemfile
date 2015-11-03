@@ -38,7 +38,7 @@ gem 'delayed_job_active_record'
 gem 'haml-rails'
 gem 'haml' , '~> 4.0.7'
 
-gem 'rest_client'
+gem 'rest-client'
 
 
 # Use Capistrano for deployment
