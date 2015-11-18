@@ -11,11 +11,109 @@
  * file per style scope.
  *
  *= require_tree .
+ *= require bootstrap-datepicker3
+ *= require font-awesome
  *= require_self
  */
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "bootstrap/theme";
+
+*{
+  font-family:"Lato";
+}
+body{
+  background-color:#F5F8FA;
+}
+#nav{
+  background-color:#fff;
+  border-bottom:1px solid #ABABAB;
+  padding-left:50px;
+  padding-right:50px;
+  overflow:auto;
+  .n-header{
+    float:left;
+  }
+  .n-brand{
+    display:inline-block;
+    text-decoration:none;
+  }
+  .n-brand h1{
+    margin:0px;
+    font-size:30px;
+    padding:10px;
+    letter-spacing:1px;
+    font-weight:300;
+    height:50px;
+    color:#1998BB;
+    i{
+      margin-right:10px;
+    }
+  }
+  .n-nav{
+    float:right;
+  }
+  .n-nav ul{
+    overflow:auto;
+    margin:0px;
+  }
+  .n-nav li{
+    letter-spacing:1px;
+    float:left;
+    list-style-type:none;
+    font-size:15px;
+    line-height:30px;
+    margin:10px;
+    height:30px;
+
+    .share-book{
+      padding:0 15px;
+      border: 2px solid #E5E5E5;
+      color:#808E96;
+    }
+    .user{
+      color:#787e84;
+    }
+  }
+  .n-nav a{
+    text-transform:uppercase;
+    text-decoration:none;
+    display:block;
+    padding-right:5px;
+    color:#BBBDBD;
+    border-right:2px solid #E5E5E5;
+    span{
+      margin-right:5px;
+      font-weight:700;
+      font-size:20px;
+      height:30px;
+      color:#1998BB;
+    }
+  }
+
+}
+.isbn-form{
+  border:0px;
+  display:none;
+  background-color:#BBCDD3;
+  position:absolute;
+  top:51px;
+  input{
+    width:250px;
+    margin:5px 0px;
+    margin-left:10px;
+    font-size:20px;
+    padding:0px 5px;
+    height:40px;
+  }
+  .submit{
+    margin-right:10px;
+    width:100px;
+    color:#fff;
+    background-color:#1C96CA;
+    border:0px;
+  }
+}
 
 #notify{
   visibility:hidden;

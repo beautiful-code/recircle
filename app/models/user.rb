@@ -1,8 +1,7 @@
 class User < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :confirmable, :lockable
+  devise :database_authenticatable, :registerable,:omniauthable,:rememberable,
+    :trackable, :validatable
+
   validates :email, presence: true, uniqueness: true
   validates :name, presence: true
   has_many :books, dependent: :destroy
@@ -11,6 +10,24 @@ class User < ActiveRecord::Base
   has_many :requests_to_me,class_name: 'Request',foreign_key: :owner_id
   has_many :borrowed_books,class_name: 'Book',foreign_key: :borrower_id
   has_many :notifications
+
+  #omniauth
+  def self.from_omniauth(auth)
+    where(provider:auth.provider,uid:auth.uid).first_or_create do |user|
+      user.provider = auth.provider
+      user.uid = auth.uid
+      user.email = auth.info.email
+      user.name = auth.info.name
+    end
+  end
+
+  def new?
+    self.fulladdress == nil
+  end
+  #password not required for facebook login
+  def password_required?
+    super && provider.blank?
+  end
 
   #Whether user own book or not
   def owns? book
@@ -35,6 +52,14 @@ class User < ActiveRecord::Base
 
   def has_an_open_request? book
     Request.find_by(user_id: self.id, book_id: book.id ,status: Request::PENDING_CODE) !=nil
+  end
+
+  def get_request book
+    requests.where(book_id:book.id,status:Request::PENDING_CODE).first
+  end
+
+  def all_requests
+    self.requests
   end
 
   def pending_requests

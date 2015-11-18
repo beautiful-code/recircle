@@ -1,11 +1,17 @@
 #app-index
-  = form_tag search_path,method: 'get' do |f|
-    %p
-      = text_field_tag :search ,params[:search],class:"center-block"
-      = submit_tag "Search", name: nil,class:"center-block"
-  .container
-    %h1 Books around you
-    .row
-      - @books.each do |book|
-        .col-xs-6.col-sm-4.col-md-2
-          = link_to image_tag(book.image,class: "img-responsive",alt: book.name),user_book_path(user_id: book.owner.id,id: book.id)
+  = image_tag("landing.jpg",class:"landing")
+  .heading
+    %h1 
+      %i{class: "fa fa-refresh"}
+      ReCircle
+    %h2 Free Circulating library!
+    %h3 Exchange books with your colleagues.
+    = link_to "<h4><i class='fa fa-facebook'></i>Login with Facebook</h4>".html_safe,"http://localhost:3000/users/auth/facebook"
+  .books_demo
+    .container
+      %h2
+        = @total_books_count.to_s+" books are available for free right now.Take your pick."
+      .row
+        - @last_six_books.each do |book|
+          .col-xs-6.col-sm-4.col-md-2
+            = link_to image_tag(book.image,class: "img-thumbnail",alt: book.name),user_book_path(user_id: book.owner.id,id: book.id)

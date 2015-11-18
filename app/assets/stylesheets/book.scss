@@ -9,7 +9,37 @@
   .requests{
     margin-top: 100px;
   }
-  //[class^='col']{
-   // padding: 0px;
-  //}
+}
+.book-pickup{
+  .container{
+    margin-top:30px;
+    background-color:#fff;
+    border:1px solid #CACACA;
+    padding-bottom:10px;
+  }
+  h1{
+    color:#64747D;
+    text-align:center;
+    font-size:35px;
+    font-weight:300;
+    border-bottom: 2px solid #CACACA;
+    margin:10px 0px;
+    padding-bottom:10px;
+    a{
+      color:#64747D;
+      font-weight:500;
+      text-decoration:none;
+    }
+  }
+  img{
+    height:500px;
+    margin:0 auto;
+  }
+  h4{
+    color:#7C8B94;
+    margin-right:10px;
+  }
+  h5{
+    display:inline-block;
+  }
 }

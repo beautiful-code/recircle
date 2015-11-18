@@ -2,8 +2,104 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.request-index{
-  img {
-    height: 350px;
+#request-index{
+  .row {
+    background-color:#fff;
+    border: 2px solid #AFAFAF;
+    margin:15px 0px;
+  }
+  #requests-to-me{
+    .requestme{
+      margin:15px 0px;
+      overflow:auto;
+      a{
+        color:#32B3CF;
+        text-decoration:none;
+      }
+      .row{
+        margin-top:0px;
+        border:0px;
+        border-bottom:1px solid #CECECE;
+      }
+      img{
+        height:300px;
+      }
+      h1{
+        margin:0px;
+        line-height:50px;
+        color:#686C6D;
+      }
+      h3{
+        margin:0px;
+        line-height:30px;
+        color:#6EC9DC;
+      }
+      h4{
+        margin:0px;
+        line-height:50px;
+        color:#6EC9DC;
+      }
+      h6{
+        margin:0px;
+      }
+      h5{
+        font-size:20px;
+        color:#787C7D;
+        font-weight:700;
+        text-transform:uppercase;
+        span{
+          font-size:15px;
+          margin-right:15px;
+        }
+      }
+      .select-button{
+        height:40px;
+        background-color:#1C9ABD;
+        border:0px;
+        padding: 0px 20px;
+        color:#fff;
+      }
+    }
+  }
+  #requests-by-me{
+    .myrequest{
+      overflow:auto;
+      height:200px;
+      margin: 25px 0px;
+      margin-right:20px;
+      img {
+        height: 200px;
+      }
+      color:#696D6E;
+      font-weight:700;
+      h3{
+        margin-bottom:2px;
+      }
+      .address{
+        font-weight:300;
+      }
+
+      .pending-request-info{
+        height:200px;
+        border: 2px solid #AFAFAF;
+        background-color:#EEF6F9;
+        .info{
+          margin:0px 10px;
+        }
+        h3{
+          color:#5EBCED;
+          text-transform:uppercase;
+        }
+        h4{
+          font-size:20px;
+          color:#7F8E97;
+          line-height:30px;
+          a{
+            color:#5EBCED;
+            text-decoration:none;
+          }
+        }
+      }
+    }
   }
 }

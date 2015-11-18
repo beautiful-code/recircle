@@ -1,0 +1,23 @@
+.container.user-shared-books
+  - @books.each do|book|
+    .col-sm-6.col-md-6
+      .book
+        .col-xs-4.col-sm-4
+          = link_to  image_tag(book.image,class: "img-responsive",alt: book.name),user_book_path(user_id: book.owner, id: book)
+        .col-xs-8.col-sm-8
+          %p
+            = "Shared on #{format_time(book.created_at)}"
+          %h3
+            = book.name
+          = book.author
+          .pickup
+            Pickup at:
+          .address
+            = book.owner.area
+            %br
+            = book.owner.fulladdress
+          .share
+            - if book.lock?
+              = link_to "Share",user_book_unlock_path(user_id: current_user.id,book_id: book.id),method: :patch
+            - else
+              = link_to "Unshare",user_book_lock_path(user_id: current_user.id,book_id: book.id),method: :patch

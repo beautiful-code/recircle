@@ -5,6 +5,13 @@ class BooksController < ApplicationController
     @book.image=""
   end
 
+  def pickup_time
+    if @book=current_user.books.find(params[:book_id])
+    else
+      redirect_to root_path
+    end
+  end
+
   def create
 
     if(params["isbn_number"])
@@ -16,9 +23,9 @@ class BooksController < ApplicationController
       else
         book=book_response["items"][0]["volumeInfo"]
         if book["imageLinks"]
-          @book=current_user.books.build(name:book["title"],image:book["imageLinks"]["thumbnail"])
+          @book=current_user.books.build(name:book["title"],image:book["imageLinks"]["thumbnail"],isbn:params["isbn_number"],author:book["authors"][0])
         else
-          @book=current_user.books.build(name:book["title"])
+          @book=current_user.books.build(name:book["title"],isbn:params["isbn_number"],author:book["authors"][0])
         end
       end
     else
@@ -26,7 +33,7 @@ class BooksController < ApplicationController
     end
 
     if @book.save
-      redirect_to library_user_path(current_user)
+      redirect_to user_shared_books_path(current_user)
     else
       render "new"
     end

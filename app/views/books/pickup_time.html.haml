@@ -1,0 +1,15 @@
+.book-pickup
+  .container
+    %h1
+      You have select
+      = link_to @book.owner.name,user_path(@book.owner)
+      When should he pick up the book ?
+    .row
+      .col-sm-6.col-md-5
+        = link_to image_tag(@book.image,class: "img-responsive",alt: @book.name),user_book_path(current_user,@book)
+      .col-sm-6.col-md-7
+        %h4 Date
+        %h5 From
+        %input(type="text" data-provide="datepicker")
+        %h5 to
+        %input(type="text" data-provide="datepicker")

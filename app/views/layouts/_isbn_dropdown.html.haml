@@ -1,0 +1,5 @@
+.isbn-form
+  -@book=Book.new
+  = form_for [current_user,@book] do
+    = text_field_tag "isbn_number",nil,placeholder:"Enter ISBN No"
+    = submit_tag "Add Book",class:"submit"

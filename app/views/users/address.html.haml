@@ -1,0 +1,28 @@
+.user-address
+  .container
+    .heading Share your office address for book pickup/drop
+    = form_for current_user,url:user_update_address_path(current_user),method: :patch do |f|
+      .row
+        .col-md-4
+          = f.label :company,"Company Name"
+        .col-md-8
+          = f.text_field :company
+      .row
+        .col-md-4
+          = f.label :landmark
+        .col-md-8
+          = f.text_field :landmark
+      .row
+        .col-md-4
+          = f.label :area
+        .col-md-8
+          = f.text_field :area
+      .row
+        .col-md-4
+          = f.label :fulladdress,"Full Address"
+        .col-md-8
+          = f.text_area  :fulladdress,rows:4,cols:50
+      .row
+        .col-md-4
+        .col-md-8
+          = f.submit "OK.Let me see some books now.",class: "submit"

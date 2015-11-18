@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150924112505) do
+ActiveRecord::Schema.define(version: 20151117085051) do
 
   create_table "books", force: :cascade do |t|
     t.integer  "user_id"
@@ -21,7 +21,9 @@ ActiveRecord::Schema.define(version: 20150924112505) do
     t.datetime "updated_at",                                                                             null: false
     t.string   "state",       default: "unlocked"
     t.integer  "borrower_id"
-    t.integer  "condition",   default: 0
+    t.string   "isbn"
+    t.string   "author"
+    t.datetime "pickup_time"
   end
 
   add_index "books", ["user_id"], name: "index_books_on_user_id"
@@ -97,6 +99,12 @@ ActiveRecord::Schema.define(version: 20150924112505) do
     t.datetime "locked_at"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "company"
+    t.string   "landmark"
+    t.string   "area"
+    t.string   "fulladdress"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true

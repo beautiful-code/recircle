@@ -1,13 +1,19 @@
 Rails.application.routes.draw do
   get 'notifications/index'
 
-  devise_for :users, path_names: {sign_in: "login"},controllers: {registrations:'users/registrations'}
+  devise_for :users, path_names: {sign_in: "login"},controllers: {omniauth_callbacks:'omniauth_callbacks'}
+
   root 'app#index'
   get 'search' => 'app#search'
 
 
-  resources :users,only:[:show]  do
+  resources :users,only: [:show]  do
+    get 'address' => 'users#address'
+    get 'shared_books' => 'users#shared_books'
+    patch 'update_address' => 'users#update_address'
     resources :books,only: [:new,:show,:edit,:update, :create] do
+
+      get 'pickup_time' => 'books#pickup_time'
       patch 'lock'
       patch 'unlock'
       patch 'give_back'
@@ -25,9 +31,6 @@ Rails.application.routes.draw do
       end
     end
 
-    member do
-      get 'library' => 'users#library'
-    end
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

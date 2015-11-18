@@ -2,9 +2,81 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.user-library{
-  img {
-    height: 300px;
-    margin: 0 auto;
+.user-shared-books{
+  .book{
+    img{
+      height:200px;
+    }
+    p{
+      color:#A7B0C4;
+      font-weight:500;
+    }
+    margin-top:10px;
+    padding:10px 10px;
+    overflow:auto;
+    background-color:#fff;
+    border: 2px solid #AFAFAF;
+    color:#696D6E;
+    font-weight:700;
+    h3{
+      margin-top:5px;
+      margin-bottom:2px;
+    }
+    .pickup{
+      margin-top:5px;
+      color:#C9D3D6;
+      font-weight:300;
+      font-size:13px;
+    }
+    .address{
+      font-weight:300;
+      font-size:16px;
+    }
+    .share{
+      margin-top:10px;
+      a{
+        text-decoration:none;
+        color:#4DAEE9;
+        font-weight:300;
+        font-size:20px;
+      }
+    }
+  }
+}
+.user-address{
+  margin:20px 100px;
+  color:#819098;
+  border:2px solid #979797;
+  .heading{
+    padding:10px 0px;
+    font-size:35px;
+    line-height:40px;
+    font-weight:300;
+    border-bottom: 1px solid #BEBEBE;
+    margin-bottom:20px;
+    margin-top:10px;
+  }
+  label{
+    float:right;
+    font-size:18px;
+    font-weight:500;
+  }
+  .row{
+    margin-bottom:20px;
+  }
+  input,textarea{
+    border:1px solid #BFB9B9;
+    border-radius:3px;
+  }
+  .submit{
+    background-color:#1C9ABD;
+    font-size:20px;
+    line-height:50px;
+    height:50px;
+    color:#ffffff;
+    font-weight:500;
+    border:0px;
+    border-radius:5px;
+    padding: 0 20px;
   }
 }

@@ -1,61 +1,15 @@
 .book-show
-  = div_for(@book,class: "container") do
+  .container
     .row
-      .col-xs-12.col-sm-5.col-md-6
-        %h2.text-center= @book.name
+      .col-sm-5.col-md-4
         = image_tag(@book.image,class: ["center-block","img-responsive"],alt: @book.name)
-      .col-xs-12.col-sm-7.col-md-6
-        .row
-          %h3.pull-right
-            Owned By: #{link_to @user.name.capitalize,@user}
-
-        - if current_user.owns? @book
-          - if @book.borrowed?
-            %h3 This book is borrowed by #{link_to @book.borrower.name,[@book.borrower]}
-          - else
-            //requests for owner only
-            .row
-              = link_to "Edit",edit_user_book_path(user_id: current_user.id,id: @book.id),class: ["btn btn-primary","pull-right"]
-              - unless @book.lock?
-                = button_to "Lock Book",user_book_lock_path(user_id: current_user.id,book_id: @book.id),method: :patch,class: ["btn btn-primary","pull-right"]
-              - else
-                = button_to "Unlock Book",user_book_unlock_path(user_id: current_user.id,book_id: @book.id),method: :patch,class: ["btn btn-primary","pull-right"]
-            .requests
-              - @book.unanswered_requests.each do |request|
-                .row
-                  .col-xs-4.col-sm-4.col-md-4
-                    %h4 Requested By #{(link_to request.requester.name,request.requester)}
-                  .col-xs-4.col-sm-4.col-md-4
-                    %h4 #{(request.message)}
-                  .col-xs-2.col-sm-2.col-md-2
-                    = button_to "Accept",accept_user_request_path(user_id: current_user.id,id: request.id),method: :patch,class: ["btn btn-primary","center-block"]
-                  .col-xs-2.col-sm-2.col-md-2
-                    = button_to "Decline",decline_user_request_path(user_id: current_user.id,id: request.id),method: :patch,class: ["btn btn-primary","center-block"]
-
-        - else
-          - if @book.lock?
-            %h3 Book is locked by user
-          - elsif current_user.borrowed? @book
-            %h3 You had this book
-            = button_to "Give Back",user_book_give_back_path(user_id:current_user,book_id:@book),method: :patch,class: "btn btn-primary"
-          - elsif @book.borrowed?
-            %h3 This book is borrowed by = @book.user
-          - elsif current_user.has_an_open_request?(@book)
-            %h3 You request is in pending
-          - else
-            .row
-              = form_for [current_user,@request] do |f|
-                .form-group
-                  = f.label :message
-                  = f.text_field :message,autofocus: true,class: 'form-control'
-                  = f.hidden_field :book_id, value: @book.id
-                  = f.hidden_field :request_type, value: Request::GIVE_AWAY
-                = f.submit "Request Book",class: "btn btn-primary"
-            .row
-              = form_for [current_user,@request] do |f|
-                .form-group
-                  = f.label :message
-                  = f.text_field :message,autofocus: true,class: 'form-control'
-                  = f.hidden_field :book_id, value: @book.id
-                  = f.hidden_field :request_type, value: Request::LEND
-                = f.submit "Borrow Book",class: "btn btn-primary"
+      .col-sm-7.col-md-6
+        %h4 ISBN: #{@book.isbn}
+        -if current_user.owns? @book
+          %h2
+            I'm in possession of this book and I'm ready to share it with the world!
+          .share
+            - if @book.lock?
+              = link_to "Share Now",user_book_unlock_path(user_id: current_user.id,book_id: @book.id),method: :patch
+            - else
+              = link_to "Un Share",user_book_lock_path(user_id: current_user.id,book_id: @book.id),method: :patch

@@ -1,75 +1,66 @@
-.request-index.container
+#request-index.container
   //Defining tabs
   %ul.nav.nav-tabs(role="tablist")
     %li.active(role="presentation")
-      %a(href="#requests-to-me" aria-controls="requests-to-me" role="tab" data-toggle="tab") Requests To Me
+      %a(href="#requests-by-me" aria-controls="requests-by-me" role="tab" data-toggle="tab") REQUESTS FROM ME
     %li(role="presentation")
-      %a(href="#requests-by-me" aria-controls="requests-by-me" role="tab" data-toggle="tab") Requests By Me
+      %a(href="#requests-to-me" aria-controls="requests-to-me" role="tab" data-toggle="tab") REQUESTS TO ME
 
   //Tab Content
   .tab-content
 
-    .tab-pane.active#requests-to-me(role="tabpanel")
+    .tab-pane#requests-to-me(role="tabpanel")
       - @requests_to_my_books_hash.each do |book,requests|
         - unless requests.count == 0
           .row
-            .col-xs-12.col-sm-4.col-md-4
-              = link_to image_tag(book.image,class:["img-responsive","center-block"]),[current_user, book]
-            .col-xs-12.col-sm-8.col-md-8
-              %h1= book.name
-              - requests.each do |request|
+            .requestme
+              .col-sm-4.col-md-3
+                = link_to image_tag(book.image,class:["img-responsive","center-block"]),[current_user, book]
+              .col-sm-8.col-md-9
                 .row
+                  .col-xs-8.col-sm-8.col-md-8
+                    %h1= book.name
                   .col-xs-4.col-sm-4.col-md-4
-                    %h4 #{request.request_type }By #{(link_to request.requester.name,request.requester)}
-                  .col-xs-4.col-sm-4.col-md-4
-                    %h4 #{(request.message)}
-                  .col-xs-2.col-sm-2.col-md-2
-                    = button_to "Accept",accept_user_request_path(user_id: current_user.id,id: request.id),method: :patch,class: "btn btn-primary"
-                  .col-xs-2.col-sm-2.col-md-2
-                    = button_to "Decline",decline_user_request_path(user_id: current_user.id,id: request.id),method: :patch,class: "btn btn-primary"
-      %h3 History
-      %table.table
-        %thead
-          %tr
-            %th Date
-            %th Book
-            %th Status
-        %tbody
-          - current_user.requests_to_me_history.each do |request|
-            %tr
-              %td
-                = time_format request.created_at
-              %td
-                = link_to request.book.name,[request.book.owner,request.book]
-              %td
-                = request_status request
+                    %h4 You have #{requests.count} requests
+                - requests.each do |request|
+                  .row
+                    .col-sm-10.col-md-10
+                      %h3 #{(link_to request.requester.name,request.requester)}
+                      %h6
+                        = request.requester.area
+                      %h5
+                        #{request.requester.books.count}
+                        %span Shares
+                        #{request.requester.requests.count} 
+                        %span Requests
+                    .col-sm-2.col-md-2
+                      = button_to "Select",accept_user_request_path(user_id: current_user.id,id: request.id),method: :patch,class:"select-button"
 
-
-    .tab-pane#requests-by-me(role="tabpanel")
+    .tab-pane.active#requests-by-me(role="tabpanel")
       - @pending_requests.each do |request|
         .row
-          .col-xs-6.col-sm-4.col-md-4
-            = link_to image_tag(request.book.image,class:["img-responsive","center-block"]),user_book_path(request.book.owner,request.book)
-          .col-xs-6.col-sm-8.col-md-8
-            %h1= request.book.name
-            .row
-              .col-xs-10.col-sm-10.col-md-10
-                %h4 status: Pending
-              .col-xs-2.col-sm-2.col-md-2
-                = button_to "Cancel",cancel_user_request_path(user_id: current_user.id,id: request.id),method: :patch,class: "btn btn-primary"
-      %h3 History
-      %table.table
-        %thead
-          %tr
-            %th Date
-            %th Book
-            %th Status
-        %tbody
-          - current_user.requests_history.each do |request|
-            %tr
-              %td
-                = time_format request.created_at
-              %td
-                = link_to request.book.name,[request.book.owner,request.book]
-              %td
-                = request_status request
+          .myrequest
+            .col-sm-3.col-md-2
+              - book = request.book
+              = link_to image_tag(book.image,class: "img-thumbnail",alt: book.name),user_book_path(user_id: book.owner.id,id: book.id)
+            .col-sm-3.col-md-3
+              %h3
+                = book.name
+              = book.author
+              %h5
+                Will be shared by
+                = link_to book.owner.name,user_path(book.owner)
+              .address
+                = book.owner.landmark
+              .address
+                = book.owner.fulladdress
+            .col-sm-6.col-md-7
+              .pending-request-info
+                .info
+                  %h3 Pending
+                  You requested book on
+                  = request.created_at
+                  %h4
+                    We have notified
+                    = link_to request.owner.name,user_path(request.owner)
+                    about your request.We'll let you know as soon as he accepts your request.

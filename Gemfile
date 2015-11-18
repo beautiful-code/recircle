@@ -17,7 +17,7 @@ gem 'coffee-rails', '~> 4.1.0'
 # Use jquery as the JavaScript library
 gem 'jquery-rails','~> 4.0.5'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
+#gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
@@ -28,9 +28,15 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 #Authentication and Session
 gem 'devise', '~> 3.5.2'
+gem 'omniauth-facebook'
+
+#runtime javascript
+gem 'therubyracer'
 
 #Delayed Job
 gem 'delayed_job_active_record'
+
+gem 'bootstrap-datepicker-rails'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
@@ -39,7 +45,7 @@ gem 'haml-rails'
 gem 'haml' , '~> 4.0.7'
 
 gem 'rest-client'
-
+gem "font-awesome-rails"
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

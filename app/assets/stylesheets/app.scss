@@ -3,9 +3,185 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 #app-index{
-  img {
-    height: 200px;
-    margin: 0 auto;
+  background-color:#F5F8FA;
+  .landing{
+    height:450px;
+    width:100%;
+  }
+  .heading {
+    height:450px;
+    position: absolute;
+    top:0px;
+    margin-left:150px;
+    *{
+      margin:0px;
+      padding:0px;
+      border:0px;
+      font-weight:300;
+    }
+    h1{
+      font-size: 70px;
+      line-height: 70px;
+      padding-top: 50px;
+      padding-bottom:50px;
+      color:#1B9ABD;
+    }
+    h2{
+      font-size:50px;
+      line-height: 50px;
+      padding-top:20px;
+      padding-bottom:10px;
+      color:#ffffff;
+    }
+    h3{
+      font-size:30px;
+      line-height: 30px;
+      padding-bottom:20px;
+      color:#C0BCBB;
+    }
+    h4{
+      border-radius:5px;
+      padding:15px;
+      display:inline-block;
+      background-color:#3C5B95;
+      line-height:25px;
+      font-size:25px;
+      color:#ffffff;
+      font-weight:700;
+      i {
+        padding-right:20px;
+      }
+    }
+  }
+  .books_demo{
+    h2{
+      text-align:center;
+      font-size:45px;
+      line-height: 45px;
+      padding-top:20px;
+      padding-bottom:10px;
+      color:#72828B;
+      font-weight:300;
+    }
+    img{
+      height:200px;
+    }
+  }
+
+}
+
+#app-start{
+  padding-top:50px;
+  background-color:#F5F8FA;
+  .heading{
+    font-size:50px;
+    font-weight:300;
+    color:#8f9293;
+    text-transform:uppercase;
+    text-align:center;
+  }
+  .instructions{
+    width:850px;
+    color:#75858F;
+    margin:0 auto;
+    .row{
+      background-color:#ffffff;
+      padding: 10px 40px;
+      border:1px solid #788790;
+      border-radius:10px;
+      margin: 20px 0px;
+    }
+    .text{
+      font-size:35px;
+    }
+    span {
+      height:100px;
+      width:100px;
+      line-height:100px;
+      text-align:center;
+      color:#ffffff;
+      display:inline-block;
+      font-weight:700;
+      font-size:40px;
+      background-color:#1C9ABD;
+      border-radius:100%;
+    }
+    .start{
+      text-align:center;
+      a{
+        height:70px;
+        background-color: #1C9ABD;
+        display:inline-block;
+        color:#fff;
+        padding:10px 120px;
+        font-size:30px;
+        border-radius:5px;
+        text-decoration:none;
+      }
+    }
+
+  }
+}
+#app-home{
+  form{
+    background-color:#EDF5F8;
+    .row{
+      width:1000px;
+      margin:0px auto;
+      text-align:center;
+      input{
+        border:0px;
+        height:40px;
+        margin:5px auto;
+      }
+      .search-text{
+        font-size:25px;
+        font-weight:300;
+        line-height:40px;
+        width:inherit;
+      }
+      .submit{
+        background-color: #1C9ABD;
+        color:#fff;
+        font-size:20px;
+        padding:0px 20px;
+      }
+    }
+  }
+  .book{
+    img{
+      height:200px;
+    }
     margin-top:10px;
+    padding:10px 10px;
+    overflow:auto;
+    background-color:#fff;
+    border: 2px solid #AFAFAF;
+    color:#696D6E;
+    font-weight:700;
+    h3{
+      margin-bottom:2px;
+    }
+    .address{
+      font-weight:300;
+    }
+    .request{
+      margin-top:20px;
+      a{
+        font-size:18px;
+        color:#1C9ABD;
+        text-decoration:none;
+      }
+      form{
+        background-color:#fff;
+      }
+      input{
+        border:0px;
+        background-color:#fff;
+        color:#1C9ABD;
+        font-weight:300;
+        font-size:18px;
+      }
+    }
   }
 }
