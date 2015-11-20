@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     resources :books,only: [:new,:show,:edit,:update, :create] do
 
       get 'pickup_time' => 'books#pickup_time'
+      patch 'update_pickup_time' => 'books#update_pickup_time'
       patch 'lock'
       patch 'unlock'
       patch 'give_back'

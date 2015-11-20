@@ -51,6 +51,7 @@ gem "font-awesome-rails"
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
+  gem 'railroady'
   #RSPEC
   gem 'rspec-rails' , '~> 3.3.0'
   # Use sqlite3 as the database for Active Record

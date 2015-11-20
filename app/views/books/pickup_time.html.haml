@@ -8,8 +8,10 @@
       .col-sm-6.col-md-5
         = link_to image_tag(@book.image,class: "img-responsive",alt: @book.name),user_book_path(current_user,@book)
       .col-sm-6.col-md-7
-        %h4 Date
-        %h5 From
-        %input(type="text" data-provide="datepicker")
-        %h5 to
-        %input(type="text" data-provide="datepicker")
+        = form_for @book,url:user_update_pickup_time_path(current_user,@book),method: :patch do |f|
+          %h4 Date
+          %h5 From
+          = f.text_field :start_time
+          %input(type="text" data-provide="datepicker")
+          %h5 to
+          %input(type="text" data-provide="datepicker")

@@ -3,6 +3,7 @@ class Book < ActiveRecord::Base
   belongs_to :borrower, class_name: 'User', foreign_key: :borrower_id
   validates :name,presence: true
   has_many :requests
+  serialize :pickup_time,Hash
 
   #Condition of Book
   NEW =0

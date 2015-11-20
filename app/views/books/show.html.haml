@@ -10,6 +10,6 @@
             I'm in possession of this book and I'm ready to share it with the world!
           .share
             - if @book.lock?
-              = link_to "Share Now",user_book_unlock_path(user_id: current_user.id,book_id: @book.id),method: :patch
+              = link_to "Share Now!",user_book_unlock_path(user_id: current_user.id,book_id: @book.id),method: :patch
             - else
-              = link_to "Un Share",user_book_lock_path(user_id: current_user.id,book_id: @book.id),method: :patch
+              = link_to "Un Share!",user_book_lock_path(user_id: current_user.id,book_id: @book.id),method: :patch

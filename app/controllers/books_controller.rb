@@ -7,9 +7,16 @@ class BooksController < ApplicationController
 
   def pickup_time
     if @book=current_user.books.find(params[:book_id])
+      @book.pickup_time =Hash.new
+      @book.pickup_time.start_date = nil
+      @book.pickup_time.end_date = nil
     else
       redirect_to root_path
     end
+  end
+
+  def update_pickup_time
+
   end
 
   def create

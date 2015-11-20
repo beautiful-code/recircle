@@ -3,11 +3,35 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .book-show{
-  img{
-    height: 400px;
+  .container{
+    background-color:#fff;
+    margin-top:20px;
   }
-  .requests{
-    margin-top: 100px;
+  .row{
+    margin:30px 0px;
+  }
+  img{
+    height: 500px;
+  }
+  h4{
+    font-weight:500;
+    color:#7E8D96;
+  }
+  h2{
+    font-weight:300;
+    color:#B8C0C4;
+  }
+  .share{
+    display:inline-block;
+    background-color:#1C9ABD;
+    border-radius:5px;
+    a{
+      display:inline-block;
+      font-size:20px;
+      text-decoration:none;
+      color:#fff;
+      padding:5px 15px
+    }
   }
 }
 .book-pickup{
